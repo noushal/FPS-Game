@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using static scr_Models;
 using System.Linq;
+using System.Collections;
+using TMPro;
 
 public class scr_WeaponController : MonoBehaviour {
 
@@ -64,6 +66,23 @@ public class scr_WeaponController : MonoBehaviour {
     public WeaponFireType currentFireType;
     [HideInInspector]
     public bool isShooting;
+    private bool isFiring;
+    private float nextFireTime;
+    private int burstCount;
+    public int bulletsPerBurst = 3;
+    public float burstDelay = 0.1f;
+    public float recoilAmount = 0.1f;
+
+    public int totalAmmo = 120;
+    public int magazineSize = 30;
+    private int currentAmmoInMagazine;
+    public float reloadTime = 2.0f;
+    private bool isReloading = false;
+
+    public TMP_Text ammoText;
+    public TMP_Text reloadText;
+
+    private scr_WeaponRecoil recoilScript;
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -74,6 +93,11 @@ public class scr_WeaponController : MonoBehaviour {
 
     private void Start() {
         newWeaponRotation = transform.localRotation.eulerAngles;
+
+        recoilScript = transform.GetComponentInParent<scr_WeaponRecoil>();
+
+        currentAmmoInMagazine = magazineSize;
+        UpdateAmmoUI();
 
         currentFireType = allowedFireType.First();
 
@@ -86,6 +110,23 @@ public class scr_WeaponController : MonoBehaviour {
         if (!isInitialised) {
             return;
         }
+
+        if (isReloading) return;
+
+        if (isFiring && Time.time >= nextFireTime && currentAmmoInMagazine > 0) {
+            if (burstCount < bulletsPerBurst) {
+                Shoot();
+                ApplyRecoil();
+                burstCount++;
+                nextFireTime = Time.time + burstDelay;
+                UpdateAmmoUI();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+            StartCoroutine(Reload());
+        }
+
         CalculateWeaponRotation();
         SetWeaponAnimations();
         CalculateWeaponSway();
@@ -99,29 +140,41 @@ public class scr_WeaponController : MonoBehaviour {
     #region Shooting
 
     private void CalculateShooting() {
-        if (isShooting) {
+        if (isShooting && currentFireRate <= 0f) {
             Shoot();
+            currentFireRate = 1f / rateOfFire;
+        }
 
-            if (currentFireType == WeaponFireType.SemiAuto) {
-                isShooting = false;
-            }
+        if (currentFireRate > 0f) {
+            currentFireRate -= Time.deltaTime;
         }
     }
 
     private void Shoot() {
+        if (currentAmmoInMagazine <= 0) {
+            return;
+        }
+
         RaycastHit hit;
         Vector3 shootDirection = characterController.camera.transform.forward;
+
         PlayFiringSound();
+        recoilScript.RecoilFire();
+
         if (Physics.Raycast(characterController.camera.transform.position, shootDirection, out hit, settings.Range)) {
             scr_Enemy enemy = hit.collider.GetComponent<scr_Enemy>();
             if (enemy != null) {
                 GameObject hitParticles = Instantiate(hitParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(hitParticles, 0.1f);
                 enemy.TakeDamage(settings.Damage);
+
             } else if (bulletHoleLayers == (bulletHoleLayers | (1 << hit.collider.gameObject.layer))) {
                 SpawnBulletHole(hit);
             }
         }
+
+        currentAmmoInMagazine--;
+        UpdateAmmoUI();
     }
     private void PlayFiringSound() {
         if (fireSound && audioSource) {
@@ -133,6 +186,50 @@ public class scr_WeaponController : MonoBehaviour {
         GameObject bulletHole = Instantiate(bulletHolePrefab, hit.point, Quaternion.LookRotation(hit.normal));
         bulletHole.transform.SetParent(hit.transform);
         Destroy(bulletHole, 10f);
+    }
+
+    private void ApplyRecoil() {
+        float recoilX = Random.Range(-recoilAmount, recoilAmount);
+        float recoilY = Random.Range(recoilAmount / 2, recoilAmount);
+        characterController.leanPivot.transform.Rotate(-recoilY, recoilX, 0);
+    }
+
+    public void ShootingPressed() {
+        if (!isReloading && currentAmmoInMagazine > 0) {
+            isFiring = true;
+            burstCount = 0;
+            nextFireTime = Time.time;
+        }
+    }
+
+    public void ShootingReleased() {
+        isFiring = false;
+        burstCount = bulletsPerBurst;
+    }
+
+    private IEnumerator Reload() {
+        if (currentAmmoInMagazine == magazineSize || totalAmmo <= 0) {
+            yield break;
+        }
+
+        isReloading = true;
+        weaponAnimator.SetTrigger("Reload");
+        reloadText.gameObject.SetActive(true);
+        reloadText.text = "Reloading...";
+
+        yield return new WaitForSeconds(reloadTime);
+
+        int ammoToReload = Mathf.Min(magazineSize - currentAmmoInMagazine, totalAmmo);
+        currentAmmoInMagazine += ammoToReload;
+        totalAmmo -= ammoToReload;
+
+        isReloading = false;
+        reloadText.gameObject.SetActive(false);
+        UpdateAmmoUI();
+    }
+
+    private void UpdateAmmoUI() {
+        ammoText.text = currentAmmoInMagazine + " / " + totalAmmo;
     }
 
     #endregion

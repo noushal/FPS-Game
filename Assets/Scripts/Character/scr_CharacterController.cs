@@ -100,8 +100,8 @@ public class scr_CharacterController : MonoBehaviour {
         defaultInput.Character.LeanRightPressed.performed += e => isLeaningRight = true;
         defaultInput.Character.LeanRightReleased.performed += e => isLeaningRight = false;
 
-        defaultInput.Weapon.Fire1Pressed.performed += e => ShootingPressed();
-        defaultInput.Weapon.Fire1Released.performed += e => ShootingReleased();
+        defaultInput.Weapon.Fire1Pressed.performed += e => currentWeapon.ShootingPressed();
+        defaultInput.Weapon.Fire1Released.performed += e => currentWeapon.ShootingReleased();
 
         defaultInput.Enable();
 
@@ -129,34 +129,25 @@ public class scr_CharacterController : MonoBehaviour {
         CalculateStance();
         CalculateLeaning();
         CalculateAimingIn();
-
-        //if (Input.GetKeyDown(KeyCode.Escape)) {
-        //    Cursor.lockState = CursorLockMode.None;
-        //    Cursor.visible = true;
-        //}
-        //if (Input.GetMouseButtonDown(0)) {
-        //    Cursor.lockState = CursorLockMode.Locked;
-        //    Cursor.visible = false;
-        //}
     }
 
     #endregion
 
-    #region Shooting
+    //#region Shooting
 
-    private void ShootingPressed() {
-        if (currentWeapon) {
-            currentWeapon.isShooting = true;
-        }
-    }
+    //private void ShootingPressed() {
+    //    if (currentWeapon) {
+    //        currentWeapon.isShooting = true;
+    //    }
+    //}
 
-    private void ShootingReleased() {
-        if (currentWeapon) {
-            currentWeapon.isShooting = false;
-        }
-    }
+    //private void ShootingReleased() {
+    //    if (currentWeapon) {
+    //        currentWeapon.isShooting = false;
+    //    }
+    //}
 
-    #endregion
+    //#endregion
 
     #region IsGrounded / IsFalling
 
