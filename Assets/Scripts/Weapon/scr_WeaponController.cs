@@ -84,6 +84,12 @@ public class scr_WeaponController : MonoBehaviour {
 
     private scr_WeaponRecoil recoilScript;
 
+    [Header("Sniper Settings")]
+    public bool isSniper;
+    public float sniperZoomFOV = 30f;
+    public float normalFOV = 60f;
+    public float sniperFireRate = 1.5f;
+
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip fireSound;
@@ -93,18 +99,18 @@ public class scr_WeaponController : MonoBehaviour {
 
     private void Start() {
         newWeaponRotation = transform.localRotation.eulerAngles;
-
         recoilScript = transform.GetComponentInParent<scr_WeaponRecoil>();
 
         currentAmmoInMagazine = magazineSize;
         UpdateAmmoUI();
 
-        currentFireType = allowedFireType.First();
+        currentFireType = isSniper ? WeaponFireType.Single : allowedFireType.First();
 
         if (!audioSource) {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
     }
+
 
     private void Update() {
         if (!isInitialised) {
@@ -120,6 +126,9 @@ public class scr_WeaponController : MonoBehaviour {
                 burstCount++;
                 nextFireTime = Time.time + burstDelay;
                 UpdateAmmoUI();
+            } else {
+                burstCount = 0;
+                isFiring = false;
             }
         }
 
@@ -140,9 +149,29 @@ public class scr_WeaponController : MonoBehaviour {
     #region Shooting
 
     private void CalculateShooting() {
-        if (isShooting && currentFireRate <= 0f) {
-            Shoot();
-            currentFireRate = 1f / rateOfFire;
+        if (isShooting) {
+            if (isSniper) {
+                if (currentFireRate <= 0f) {
+                    Shoot();
+                    currentFireRate = sniperFireRate;
+                }
+            } else {
+                if (currentFireRate <= 0f) {
+                    if (isFiring && currentAmmoInMagazine > 0) {
+                        if (burstCount < bulletsPerBurst) {
+                            Shoot();
+                            ApplyRecoil();
+                            burstCount++;
+                            nextFireTime = Time.time + burstDelay;
+                            UpdateAmmoUI();
+                        } else {
+                            burstCount = 0;
+                            isFiring = false;
+                        }
+                    }
+                    currentFireRate = 1f / rateOfFire;
+                }
+            }
         }
 
         if (currentFireRate > 0f) {
@@ -166,8 +195,9 @@ public class scr_WeaponController : MonoBehaviour {
             if (enemy != null) {
                 GameObject hitParticles = Instantiate(hitParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(hitParticles, 0.1f);
-                enemy.TakeDamage(settings.Damage);
 
+                float damage = isSniper ? 100 : settings.Damage;
+                enemy.TakeDamage(damage);
             } else if (bulletHoleLayers == (bulletHoleLayers | (1 << hit.collider.gameObject.layer))) {
                 SpawnBulletHole(hit);
             }
@@ -189,8 +219,8 @@ public class scr_WeaponController : MonoBehaviour {
     }
 
     private void ApplyRecoil() {
-        float recoilX = Random.Range(-recoilAmount, recoilAmount);
-        float recoilY = Random.Range(recoilAmount / 2, recoilAmount);
+        float recoilX = isSniper ? Random.Range(-recoilAmount / 4, recoilAmount / 4) : Random.Range(-recoilAmount, recoilAmount);
+        float recoilY = isSniper ? Random.Range(recoilAmount / 8, recoilAmount / 4) : Random.Range(recoilAmount / 2, recoilAmount);
         characterController.leanPivot.transform.Rotate(-recoilY, recoilX, 0);
     }
 
@@ -208,9 +238,8 @@ public class scr_WeaponController : MonoBehaviour {
     }
 
     private IEnumerator Reload() {
-        if (currentAmmoInMagazine == magazineSize || totalAmmo <= 0) {
-            yield break;
-        }
+        if (currentAmmoInMagazine == magazineSize || totalAmmo <= 0) yield break;
+        if (isReloading) yield break;
 
         isReloading = true;
         weaponAnimator.SetTrigger("Reload");
@@ -228,7 +257,7 @@ public class scr_WeaponController : MonoBehaviour {
         UpdateAmmoUI();
     }
 
-    private void UpdateAmmoUI() {
+    public void UpdateAmmoUI() {
         ammoText.text = currentAmmoInMagazine + " / " + totalAmmo;
     }
 
@@ -239,6 +268,8 @@ public class scr_WeaponController : MonoBehaviour {
     public void Initialise(scr_CharacterController CharacterController) {
         characterController = CharacterController;
         isInitialised = true;
+
+        currentFireType = isSniper ? WeaponFireType.Single : allowedFireType.First();
     }
 
     #endregion
@@ -249,13 +280,24 @@ public class scr_WeaponController : MonoBehaviour {
         var targetPosition = transform.position;
 
         if (isAimingIn) {
-            targetPosition = characterController.camera.transform.position + (transform.position - sightTarget.transform.position) + (characterController.camera.transform.forward * sightOffset);
+            targetPosition = characterController.camera.transform.position +
+                             (transform.position - sightTarget.transform.position) +
+                             (characterController.camera.transform.forward * sightOffset);
+
+            if (isSniper) {
+                characterController.camera.fieldOfView = Mathf.Lerp(characterController.camera.fieldOfView, sniperZoomFOV, aimingInTime);
+            }
+        } else {
+            if (isSniper) {
+                characterController.camera.fieldOfView = Mathf.Lerp(characterController.camera.fieldOfView, normalFOV, aimingInTime);
+            }
         }
 
         weaponSwayPosition = weaponSwayObject.transform.position;
         weaponSwayPosition = Vector3.SmoothDamp(weaponSwayPosition, targetPosition, ref weaponSwayPositionVelocity, aimingInTime);
         weaponSwayObject.transform.position = weaponSwayPosition + swayPosition;
     }
+
 
     #endregion
 

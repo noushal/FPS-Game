@@ -345,6 +345,33 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Weapon1"",
+                    ""type"": ""Button"",
+                    ""id"": ""5f6b3c5f-d024-4839-a5ba-8873ec3d307b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Weapon2"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2269fd8-0479-432a-a262-79f0669a69d5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchWeapons"",
+                    ""type"": ""Value"",
+                    ""id"": ""e572f7fa-a03c-419c-97a1-3616089b8156"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -391,6 +418,39 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
                     ""action"": ""Fire1Released"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fe971c7-b01f-4480-a9de-76a556bf3b76"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Weapon1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e620c7b-0477-4794-9fe4-704f1756cf56"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Weapon2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eaecab90-1205-4389-acc2-7b8c6656c1ee"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWeapons"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -416,6 +476,9 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
         m_Weapon_Fire2Released = m_Weapon.FindAction("Fire2Released", throwIfNotFound: true);
         m_Weapon_Fire1Pressed = m_Weapon.FindAction("Fire1Pressed", throwIfNotFound: true);
         m_Weapon_Fire1Released = m_Weapon.FindAction("Fire1Released", throwIfNotFound: true);
+        m_Weapon_Weapon1 = m_Weapon.FindAction("Weapon1", throwIfNotFound: true);
+        m_Weapon_Weapon2 = m_Weapon.FindAction("Weapon2", throwIfNotFound: true);
+        m_Weapon_SwitchWeapons = m_Weapon.FindAction("SwitchWeapons", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -607,6 +670,9 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Weapon_Fire2Released;
     private readonly InputAction m_Weapon_Fire1Pressed;
     private readonly InputAction m_Weapon_Fire1Released;
+    private readonly InputAction m_Weapon_Weapon1;
+    private readonly InputAction m_Weapon_Weapon2;
+    private readonly InputAction m_Weapon_SwitchWeapons;
     public struct WeaponActions
     {
         private @DefaultInput m_Wrapper;
@@ -615,6 +681,9 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
         public InputAction @Fire2Released => m_Wrapper.m_Weapon_Fire2Released;
         public InputAction @Fire1Pressed => m_Wrapper.m_Weapon_Fire1Pressed;
         public InputAction @Fire1Released => m_Wrapper.m_Weapon_Fire1Released;
+        public InputAction @Weapon1 => m_Wrapper.m_Weapon_Weapon1;
+        public InputAction @Weapon2 => m_Wrapper.m_Weapon_Weapon2;
+        public InputAction @SwitchWeapons => m_Wrapper.m_Weapon_SwitchWeapons;
         public InputActionMap Get() { return m_Wrapper.m_Weapon; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -636,6 +705,15 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
             @Fire1Released.started += instance.OnFire1Released;
             @Fire1Released.performed += instance.OnFire1Released;
             @Fire1Released.canceled += instance.OnFire1Released;
+            @Weapon1.started += instance.OnWeapon1;
+            @Weapon1.performed += instance.OnWeapon1;
+            @Weapon1.canceled += instance.OnWeapon1;
+            @Weapon2.started += instance.OnWeapon2;
+            @Weapon2.performed += instance.OnWeapon2;
+            @Weapon2.canceled += instance.OnWeapon2;
+            @SwitchWeapons.started += instance.OnSwitchWeapons;
+            @SwitchWeapons.performed += instance.OnSwitchWeapons;
+            @SwitchWeapons.canceled += instance.OnSwitchWeapons;
         }
 
         private void UnregisterCallbacks(IWeaponActions instance)
@@ -652,6 +730,15 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
             @Fire1Released.started -= instance.OnFire1Released;
             @Fire1Released.performed -= instance.OnFire1Released;
             @Fire1Released.canceled -= instance.OnFire1Released;
+            @Weapon1.started -= instance.OnWeapon1;
+            @Weapon1.performed -= instance.OnWeapon1;
+            @Weapon1.canceled -= instance.OnWeapon1;
+            @Weapon2.started -= instance.OnWeapon2;
+            @Weapon2.performed -= instance.OnWeapon2;
+            @Weapon2.canceled -= instance.OnWeapon2;
+            @SwitchWeapons.started -= instance.OnSwitchWeapons;
+            @SwitchWeapons.performed -= instance.OnSwitchWeapons;
+            @SwitchWeapons.canceled -= instance.OnSwitchWeapons;
         }
 
         public void RemoveCallbacks(IWeaponActions instance)
@@ -689,5 +776,8 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
         void OnFire2Released(InputAction.CallbackContext context);
         void OnFire1Pressed(InputAction.CallbackContext context);
         void OnFire1Released(InputAction.CallbackContext context);
+        void OnWeapon1(InputAction.CallbackContext context);
+        void OnWeapon2(InputAction.CallbackContext context);
+        void OnSwitchWeapons(InputAction.CallbackContext context);
     }
 }

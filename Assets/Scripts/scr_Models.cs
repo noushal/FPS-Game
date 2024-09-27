@@ -66,6 +66,7 @@ public static class scr_Models {
 
     public enum WeaponFireType {
         SemiAuto,
+        Single,
         FullyAuto
     }
 

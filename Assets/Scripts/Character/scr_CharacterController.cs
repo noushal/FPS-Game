@@ -18,7 +18,7 @@ public class scr_CharacterController : MonoBehaviour {
 
     [Header("References")]
     public Transform cameraHolder;
-    public Transform camera;
+    public Camera camera;
     public Transform feetTransform;
 
     [Header("Settings")]
@@ -63,6 +63,9 @@ public class scr_CharacterController : MonoBehaviour {
     [HideInInspector]
     public bool isFalling;
 
+    public List<scr_WeaponController> weapons;
+    private int currentWeaponIndex = 0;
+
     [Header("Lean")]
     public Transform leanPivot;
     private float currentLean;
@@ -80,9 +83,6 @@ public class scr_CharacterController : MonoBehaviour {
 
     #region Awake
     private void Awake() {
-
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
 
         defaultInput = new DefaultInput();
 
@@ -103,6 +103,10 @@ public class scr_CharacterController : MonoBehaviour {
         defaultInput.Weapon.Fire1Pressed.performed += e => currentWeapon.ShootingPressed();
         defaultInput.Weapon.Fire1Released.performed += e => currentWeapon.ShootingReleased();
 
+        defaultInput.Weapon.Weapon1.performed += e => SwitchWeapon(0);
+        defaultInput.Weapon.Weapon2.performed += e => SwitchWeapon(1);
+        defaultInput.Weapon.SwitchWeapons.performed += e => SwitchToNextWeapon();
+
         defaultInput.Enable();
 
         newCameraRotation = cameraHolder.localRotation.eulerAngles;
@@ -112,8 +116,10 @@ public class scr_CharacterController : MonoBehaviour {
 
         cameraHeight = cameraHolder.localPosition.y;
 
-        if (currentWeapon) {
+        if (weapons.Count > 0) {
+            currentWeapon = weapons[currentWeaponIndex];
             currentWeapon.Initialise(this);
+            currentWeapon.gameObject.SetActive(true);
         }
     }
 
@@ -132,22 +138,6 @@ public class scr_CharacterController : MonoBehaviour {
     }
 
     #endregion
-
-    //#region Shooting
-
-    //private void ShootingPressed() {
-    //    if (currentWeapon) {
-    //        currentWeapon.isShooting = true;
-    //    }
-    //}
-
-    //private void ShootingReleased() {
-    //    if (currentWeapon) {
-    //        currentWeapon.isShooting = false;
-    //    }
-    //}
-
-    //#endregion
 
     #region IsGrounded / IsFalling
 
@@ -368,6 +358,29 @@ public class scr_CharacterController : MonoBehaviour {
         }
 
         currentWeapon.isAimingIn = isAimingIn;
+    }
+
+    #endregion
+
+    #region Weapon Switch
+
+    private void SwitchWeapon(int index) {
+        if (index < 0 || index >= weapons.Count || index == currentWeaponIndex) return;
+
+        weapons[currentWeaponIndex].gameObject.SetActive(false);
+
+        currentWeaponIndex = index;
+
+        weapons[currentWeaponIndex].gameObject.SetActive(true);
+
+        currentWeapon = weapons[currentWeaponIndex];
+        currentWeapon.Initialise(this);
+    }
+
+    private void SwitchToNextWeapon() {
+        int nextWeaponIndex = (currentWeaponIndex + 1) % weapons.Count;
+        SwitchWeapon(nextWeaponIndex);
+        currentWeapon.UpdateAmmoUI();
     }
 
     #endregion
