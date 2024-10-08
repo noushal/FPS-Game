@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class scr_Scenes : MonoBehaviour {
 
+    
     private void Start() {
         UpdateCursorState();
     }

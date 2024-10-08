@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 using static scr_Models;
 
 public class scr_CharacterController : MonoBehaviour {
@@ -15,6 +16,8 @@ public class scr_CharacterController : MonoBehaviour {
 
     private Vector3 newCameraRotation;
     private Vector3 newCharacterRotation;
+
+    public LayerMask ground;
 
     [Header("References")]
     public Transform cameraHolder;
@@ -57,6 +60,7 @@ public class scr_CharacterController : MonoBehaviour {
 
     [Header("Weapon")]
     public scr_WeaponController currentWeapon;
+    public scr_ScopeScript scopeScript;
     public float weaponAnimationSpeed;
     [HideInInspector]
     public bool isGrounded;
@@ -238,15 +242,24 @@ public class scr_CharacterController : MonoBehaviour {
     #region Jump
 
     private void CalculateJump() {
+
+        if (isGrounded) {
+            return;
+        }
         jumpingForce = Vector3.SmoothDamp(jumpingForce, Vector3.zero, ref jumpingForceVelocity, playerSettings.JumpingFalloff);
     }
 
     private void Jump() {
-        if (!isGrounded || playerStance == PlayerStance.Prone) {
+
+        
+        
+
+        if (!characterController.isGrounded || playerStance == PlayerStance.Prone) {
+            
             return;
         }
 
-        if (playerStance == PlayerStance.Crouch) {
+       if (playerStance == PlayerStance.Crouch) {
 
             if (StanceCheck(playerStandStance.StanceCollider.height)) {
                 return;
@@ -259,6 +272,7 @@ public class scr_CharacterController : MonoBehaviour {
         jumpingForce = Vector3.up * playerSettings.JumpingHeight;
         playerGravity = 0;
         currentWeapon.TriggerJump();
+        isGrounded = true;
     }
 
     #endregion
@@ -375,6 +389,12 @@ public class scr_CharacterController : MonoBehaviour {
 
         currentWeapon = weapons[currentWeaponIndex];
         currentWeapon.Initialise(this);
+
+        if (currentWeapon.name == "Operator") {
+            scopeScript.isSniper = true;
+        } else {
+            scopeScript.isSniper = false;
+        }
     }
 
     private void SwitchToNextWeapon() {

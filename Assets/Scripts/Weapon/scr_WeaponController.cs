@@ -8,7 +8,7 @@ using TMPro;
 
 public class scr_WeaponController : MonoBehaviour {
 
-    private scr_CharacterController characterController;
+    private scr_CharacterController characterControllerScript;
 
     [Header("References")]
     public Animator weaponAnimator;
@@ -185,12 +185,12 @@ public class scr_WeaponController : MonoBehaviour {
         }
 
         RaycastHit hit;
-        Vector3 shootDirection = characterController.camera.transform.forward;
+        Vector3 shootDirection = characterControllerScript.GetComponentInChildren<Camera>().transform.forward;
 
         PlayFiringSound();
         recoilScript.RecoilFire();
 
-        if (Physics.Raycast(characterController.camera.transform.position, shootDirection, out hit, settings.Range)) {
+        if (Physics.Raycast(characterControllerScript.GetComponentInChildren<Camera>().transform.position, shootDirection, out hit, settings.Range)) {
             scr_Enemy enemy = hit.collider.GetComponent<scr_Enemy>();
             if (enemy != null) {
                 GameObject hitParticles = Instantiate(hitParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
@@ -221,7 +221,7 @@ public class scr_WeaponController : MonoBehaviour {
     private void ApplyRecoil() {
         float recoilX = isSniper ? Random.Range(-recoilAmount / 4, recoilAmount / 4) : Random.Range(-recoilAmount, recoilAmount);
         float recoilY = isSniper ? Random.Range(recoilAmount / 8, recoilAmount / 4) : Random.Range(recoilAmount / 2, recoilAmount);
-        characterController.leanPivot.transform.Rotate(-recoilY, recoilX, 0);
+        characterControllerScript.leanPivot.transform.Rotate(-recoilY, recoilX, 0);
     }
 
     public void ShootingPressed() {
@@ -266,7 +266,7 @@ public class scr_WeaponController : MonoBehaviour {
     #region Initialise
 
     public void Initialise(scr_CharacterController CharacterController) {
-        characterController = CharacterController;
+        characterControllerScript = CharacterController;
         isInitialised = true;
 
         currentFireType = isSniper ? WeaponFireType.Single : allowedFireType.First();
@@ -280,16 +280,16 @@ public class scr_WeaponController : MonoBehaviour {
         var targetPosition = transform.position;
 
         if (isAimingIn) {
-            targetPosition = characterController.camera.transform.position +
+            targetPosition = characterControllerScript.GetComponentInChildren<Camera>().transform.position +
                              (transform.position - sightTarget.transform.position) +
-                             (characterController.camera.transform.forward * sightOffset);
+                             (characterControllerScript.GetComponentInChildren<Camera>().transform.forward * sightOffset);
 
             if (isSniper) {
-                characterController.camera.fieldOfView = Mathf.Lerp(characterController.camera.fieldOfView, sniperZoomFOV, aimingInTime);
+                characterControllerScript.GetComponentInChildren<Camera>().fieldOfView = Mathf.Lerp(characterControllerScript.GetComponentInChildren<Camera>().fieldOfView, sniperZoomFOV, aimingInTime);
             }
         } else {
             if (isSniper) {
-                characterController.camera.fieldOfView = Mathf.Lerp(characterController.camera.fieldOfView, normalFOV, aimingInTime);
+                characterControllerScript.GetComponentInChildren<Camera>().fieldOfView = Mathf.Lerp(characterControllerScript.GetComponentInChildren<Camera>().fieldOfView, normalFOV, aimingInTime);
             }
         }
 
@@ -314,8 +314,8 @@ public class scr_WeaponController : MonoBehaviour {
 
     private void CalculateWeaponRotation() {
 
-        targetWeaponRotation.y += (isAimingIn ? settings.SwayAmount / 3 : settings.SwayAmount) * (settings.SwayXInverted ? -characterController.input_View.x : characterController.input_View.x) * Time.deltaTime;
-        targetWeaponRotation.x += (isAimingIn ? settings.SwayAmount / 3 : settings.SwayAmount) * (settings.SwayYInverted ? characterController.input_View.y : -characterController.input_View.y) * Time.deltaTime;
+        targetWeaponRotation.y += (isAimingIn ? settings.SwayAmount / 3 : settings.SwayAmount) * (settings.SwayXInverted ? -characterControllerScript.input_View.x : characterControllerScript.input_View.x) * Time.deltaTime;
+        targetWeaponRotation.x += (isAimingIn ? settings.SwayAmount / 3 : settings.SwayAmount) * (settings.SwayYInverted ? characterControllerScript.input_View.y : -characterControllerScript.input_View.y) * Time.deltaTime;
 
         targetWeaponRotation.x = Mathf.Clamp(targetWeaponRotation.x, -settings.SwayClampX, settings.SwayClampX);
         targetWeaponRotation.y = Mathf.Clamp(targetWeaponRotation.y, -settings.SwayClampY, settings.SwayClampY);
@@ -324,8 +324,8 @@ public class scr_WeaponController : MonoBehaviour {
         targetWeaponRotation = Vector3.SmoothDamp(targetWeaponRotation, Vector3.zero, ref targetWeaponRotationVelocity, settings.SwayResetSmoothing);
         newWeaponRotation = Vector3.SmoothDamp(newWeaponRotation, targetWeaponRotation, ref newWeaponRotationVelocity, settings.SwaySmoothing);
 
-        targetWeaponMovementRotation.z = (isAimingIn ? settings.MovementSwayX / 3 : settings.MovementSwayX) * (settings.MovementSwayXInverted ? -characterController.input_Movement.x : characterController.input_Movement.x);
-        targetWeaponMovementRotation.x = (isAimingIn ? settings.MovementSwayY / 3 : settings.MovementSwayY) * (settings.MovementSwayYInverted ? -characterController.input_Movement.y : characterController.input_Movement.y);
+        targetWeaponMovementRotation.z = (isAimingIn ? settings.MovementSwayX / 3 : settings.MovementSwayX) * (settings.MovementSwayXInverted ? -characterControllerScript.input_Movement.x : characterControllerScript.input_Movement.x);
+        targetWeaponMovementRotation.x = (isAimingIn ? settings.MovementSwayY / 3 : settings.MovementSwayY) * (settings.MovementSwayYInverted ? -characterControllerScript.input_Movement.y : characterControllerScript.input_Movement.y);
 
         targetWeaponMovementRotation = Vector3.SmoothDamp(targetWeaponMovementRotation, Vector3.zero, ref targetWeaponMovementRotationVelocity, settings.MovementSwaySmoothing);
         newWeaponMovementRotation = Vector3.SmoothDamp(newWeaponMovementRotation, targetWeaponMovementRotation, ref newWeaponMovementRotationVelocity, settings.MovementSwaySmoothing);
@@ -346,16 +346,16 @@ public class scr_WeaponController : MonoBehaviour {
             fallingDelay += Time.deltaTime;
         }
 
-        if (characterController.isGrounded && !isGroundedTrigger && fallingDelay > 0.1f) {
+        if (characterControllerScript.isGrounded && !isGroundedTrigger && fallingDelay > 0.1f) {
             weaponAnimator.SetTrigger("Land");
             isGroundedTrigger = true;
-        } else if (!characterController.isGrounded && isGroundedTrigger) {
+        } else if (!characterControllerScript.isGrounded && isGroundedTrigger) {
             weaponAnimator.SetTrigger("Falling");
             isGroundedTrigger = false;
         }
 
-        weaponAnimator.SetBool("IsSprinting", characterController.isSprinting);
-        weaponAnimator.SetFloat("WeaponAnimationSpeed", characterController.weaponAnimationSpeed);
+        weaponAnimator.SetBool("IsSprinting", characterControllerScript.isSprinting);
+        weaponAnimator.SetFloat("WeaponAnimationSpeed", characterControllerScript.weaponAnimationSpeed);
     }
 
     #endregion
