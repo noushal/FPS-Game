@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -31,7 +32,7 @@ public class scr_Enemy : MonoBehaviour {
     public Animator enemyAnimator;
 
     public void Awake() {
-        player = GameObject.Find("Player").transform;
+        StartCoroutine(WaitForPlayer());
         agent = GetComponent<NavMeshAgent>();
         ragdollRigidBodies = GetComponentsInChildren<Rigidbody>();
         DisableRagdoll();
@@ -152,6 +153,15 @@ public class scr_Enemy : MonoBehaviour {
         foreach (var rigidbody in ragdollRigidBodies) {
             rigidbody.isKinematic = false;
         }
+    }
+
+    IEnumerator WaitForPlayer() {
+        GameObject playerObject = null;
+        while (playerObject == null) {
+            playerObject = GameObject.Find("Player");
+            yield return null;
+        }
+        player = playerObject.transform;
     }
 
 }
