@@ -1,0 +1,24 @@
+{
+    "name": "Unity.Multiplayer.Tools.NetStats.Tests.Editor",
+    "rootNamespace": "Unity.Multiplayer.Tools.NetStats.Tests",
+    "references": [
+        "Unity.Multiplayer.Tools.NetStats",
+        "Unity.Multiplayer.Tools.MetricTypes",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "Unity.Collections"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

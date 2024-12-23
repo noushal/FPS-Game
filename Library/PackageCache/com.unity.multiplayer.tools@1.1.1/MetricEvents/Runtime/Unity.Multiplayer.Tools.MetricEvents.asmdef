@@ -1,0 +1,18 @@
+{
+    "name": "Unity.Multiplayer.Tools.MetricEvents",
+    "rootNamespace": "Unity.Multiplayer.Tools.MetricEvents",
+    "references": [
+        "Unity.Collections",
+        "Unity.Multiplayer.Tools.MetricTypes",
+        "Unity.Multiplayer.Tools.NetStats"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

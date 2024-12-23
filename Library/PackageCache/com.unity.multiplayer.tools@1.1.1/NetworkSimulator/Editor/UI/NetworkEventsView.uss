@@ -1,0 +1,22 @@
+#ConnectionToggle {
+    margin-top: 3px;
+}
+
+.connection-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background-color: #14D368;
+}
+
+.connection-indicator.disconnected {
+    background-color: #C4C4C4;
+}
+
+#ConnectionToggle > .connection-indicator {
+    position: absolute;
+}
+
+#ConnectionToggle > .unity-label {
+    margin-left: 10px;
+}

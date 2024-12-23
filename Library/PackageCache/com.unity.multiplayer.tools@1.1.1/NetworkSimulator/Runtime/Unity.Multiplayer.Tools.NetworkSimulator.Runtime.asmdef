@@ -1,0 +1,33 @@
+﻿{
+    "name": "Unity.Multiplayer.Tools.NetworkSimulator.Runtime",
+    "rootNamespace": "Unity.Multiplayer.Tools.NetworkSimulator.Runtime",
+    "references": [
+        "Unity.Multiplayer.Tools.Adapters",
+        "Unity.Multiplayer.Tools.Adapters.Utp2",
+        "Unity.Multiplayer.Tools.Common"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_2022_2_OR_NEWER",
+        "UTP_TRANSPORT_2_0_ABOVE",
+        "UNITY_NETCODE_GAMEOBJECTS_1_1_ABOVE"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.transport",
+            "expression": "2.0.0-exp",
+            "define": "UTP_TRANSPORT_2_0_ABOVE"
+        },
+        {
+            "name": "com.unity.netcode.gameobjects",
+            "expression": "1.1.0",
+            "define": "UNITY_NETCODE_GAMEOBJECTS_1_1_ABOVE"
+        }
+    ],
+    "noEngineReferences": false
+}

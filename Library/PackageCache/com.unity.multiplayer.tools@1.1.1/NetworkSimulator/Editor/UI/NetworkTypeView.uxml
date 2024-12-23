@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" tools="Unity.Multiplayer.Tools.NetworkSimulator.Editor.UI" editor-extension-mode="True">
+    <Style src="NetworkTypeView.uss" />
+    <Unity.Multiplayer.Tools.NetworkSimulator.Editor.UI.NetworkPresetDropdown name="PresetDropdown" label="Connection Preset" tooltip="Simulate most common connection types. Set to Custom to use your own preset." />
+    <ui:VisualElement name="PresetValuesContainer">
+        <uie:ObjectField name="CustomPresetValue" label="Custom Preset" />
+        <ui:Foldout name="PresetValuesFoldout" text="Parameters">
+            <ui:HelpBox name="HelpBox" />
+            <ui:VisualElement name="PacketDelayRangeContainer" tooltip="The Range is the min and max simulated delay of a ping. The actual ping will be longer due to processing and actual packet delay.">
+                <ui:Label text="Packet Delay Range (ms)" />
+                <ui:IntegerField name="PacketDelayRangeMinValue" class="range-value" />
+                <ui:MinMaxSlider name="PacketDelayRange" low-value="0" show-input-field="true" low-limit="0" high-limit="5000" />
+                <ui:IntegerField name="PacketDelayRangeMaxValue" class="range-value" />
+            </ui:VisualElement>
+            <ui:SliderInt name="PacketDelaySlider" label="Packet Delay (+ms)" low-value="0" high-value="5000" show-input-field="true" tooltip="The Packet Delay simulates a real network delay for each packet (both sent and received), adding up to a round-trip “ping.”" />
+            <ui:SliderInt name="PacketJitterSlider" label="Packet Jitter (±ms)" low-value="0" high-value="2500" show-input-field="true" tooltip="The Packet Jitter adds a random delay in the specified range. This is added to the Packet Delay to result in a variable total delay." />
+            <ui:SliderInt name="PacketLossPercentSlider" label="Packet Loss (%)" w-value="0" high-value="100" show-input-field="true" tooltip="Set the percentage of packets sent or received that will be dropped. Packet Loss Interval and Percent are mutually exclusive." />
+            <ui:SliderInt name="PacketLossIntervalSlider" label="Packet Loss Interval" w-value="0" high-value="9999" show-input-field="true" tooltip="Set that every N packets, 1 packet, sent or received, will be dropped. Packet Loss Interval and Percent are mutually exclusive."/>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

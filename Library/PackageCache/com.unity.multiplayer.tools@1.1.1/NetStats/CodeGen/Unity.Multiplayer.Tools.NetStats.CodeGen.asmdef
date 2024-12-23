@@ -1,0 +1,23 @@
+{
+    "name": "Unity.Multiplayer.Tools.NetStats.CodeGen",
+    "rootNamespace": "Unity.Multiplayer.Tools.NetStats.CodeGen",
+    "references": [
+        "Unity.Multiplayer.Tools.NetStats"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Mono.Cecil.dll",
+        "Mono.Cecil.Mdb.dll",
+        "Mono.Cecil.Pdb.dll",
+        "Mono.Cecil.Rocks.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

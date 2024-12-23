@@ -1,0 +1,23 @@
+{
+    "name": "Unity.Multiplayer.Tools.MetricTypes.Tests.Editor",
+    "rootNamespace": "Unity.Multiplayer.Tools.MetricTypes.Tests",
+    "references": [
+        "Unity.Multiplayer.Tools.MetricTypes",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "Unity.Collections"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

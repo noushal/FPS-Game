@@ -1,0 +1,28 @@
+{
+  "name": "Unity.Multiplayer.Tools.Adapters.Ngo1",
+  "rootNamespace": "Unity.Multiplayer.Tools.Adapters.Ngo1",
+  "references": [
+    "com.unity.netcode.runtime",
+    "Unity.Multiplayer.Tools.Adapters",
+    "Unity.Multiplayer.Tools.MetricEvents",
+    "Unity.Multiplayer.Tools.NetStats",
+    "Unity.Netcode.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_NETCODE_GAMEOBJECTS_1_0"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.unity.netcode.gameobjects",
+      "expression": "[1.0.0,2.0.0)",
+      "define": "UNITY_NETCODE_GAMEOBJECTS_1_0"
+    }
+  ],
+  "noEngineReferences": false
+}

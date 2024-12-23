@@ -1,0 +1,20 @@
+{
+    "name": "Unity.Multiplayer.Tools.Editor",
+    "rootNamespace": "Unity.Multiplayer.Tools.Editor",
+    "references": [
+        "Unity.Multiplayer.Tools.Common"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_2021_2_OR_NEWER"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

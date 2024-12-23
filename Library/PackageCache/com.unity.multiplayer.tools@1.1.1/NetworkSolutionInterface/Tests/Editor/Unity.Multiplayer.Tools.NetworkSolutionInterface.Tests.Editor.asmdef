@@ -1,0 +1,22 @@
+{
+    "name": "Unity.Multiplayer.Tools.NetworkSolutionInterface.Tests.Editor",
+    "rootNamespace": "Unity.Multiplayer.Tools.Tests.Editor",
+    "references": [
+        "Unity.Multiplayer.Tools.NetworkSolutionInterface",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

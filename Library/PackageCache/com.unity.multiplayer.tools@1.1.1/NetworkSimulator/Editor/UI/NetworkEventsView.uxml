@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <Style src="NetworkEventsView.uss" />
+    <Unity.Multiplayer.Tools.NetworkSimulator.Editor.UI.ToggleButtonStrip name="ConnectionToggle" label="Connection">
+        <ui:VisualElement name="ConnectionIndicator" class="connection-indicator disconnected" />
+    </Unity.Multiplayer.Tools.NetworkSimulator.Editor.UI.ToggleButtonStrip>
+</ui:UXML>

@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements"
+         xmlns:tools="Unity.Multiplayer.Tools.NetworkSimulator.Editor.UI"
+         editor-extension-mode="True">
+    <Style src="NetworkScenarioView.uss" />
+    <ui:Label name="TitleLabel" label="Network Scenarios" text="Network Scenarios" />
+    <ui:DropdownField name="ScenarioDropdown" label="Scenario" />
+    <ui:Toggle name="AutoRunToggle" label="Auto Run Scenario" />
+    <tools:NetworkScenarioSettings name="SettingsContainer">
+        <ui:Foldout name="SettingsFoldout" text="Scenario Settings">
+            <ui:HelpBox name="NoScenarioMessage" message-type="Info" text="Please select a scenario to view its settings." />
+        </ui:Foldout>
+    </tools:NetworkScenarioSettings>
+    <ui:Button tabindex="-1" text="Pause" display-tooltip-when-elided="true" name="PauseResumeButton" />
+</ui:UXML>

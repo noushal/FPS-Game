@@ -1,0 +1,19 @@
+{
+    "name": "Unity.Multiplayer.Tools.NetworkProfiler.Runtime",
+    "rootNamespace": "Unity.Multiplayer.Tools.NetworkProfiler.Runtime",
+    "references": [
+        "Unity.Multiplayer.Tools.Adapters",
+        "Unity.Multiplayer.Tools.MetricTypes",
+        "Unity.Multiplayer.Tools.NetStats",
+        "Unity.Profiling.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

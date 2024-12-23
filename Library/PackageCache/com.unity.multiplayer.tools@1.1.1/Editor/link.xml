@@ -1,0 +1,8 @@
+<linker>
+    <assembly fullname="Unity.Multiplayer.Tools.Adapters.Ngo1">
+        <type fullname="Unity.Multiplayer.Tools.Adapters.Ngo1.Ngo1AdapterInitializer" preserve="all"/>
+    </assembly>
+    <assembly fullname="Unity.Multiplayer.Tools.Adapters.Ngo1WithUtp2">
+        <type fullname="Unity.Multiplayer.Tools.Adapters.Ngo1WithUtp2.Ngo1WithUtp2AdapterInitializer" preserve="all"/>
+    </assembly>
+</linker>

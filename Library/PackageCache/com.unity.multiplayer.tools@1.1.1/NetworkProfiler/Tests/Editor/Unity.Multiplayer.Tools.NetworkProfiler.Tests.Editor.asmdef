@@ -1,0 +1,29 @@
+{
+    "name": "Unity.Multiplayer.Tools.NetworkProfiler.Tests.Editor",
+    "rootNamespace": "Unity.Multiplayer.Tools.NetworkProfiler.Tests.Editor",
+    "references": [
+        "Unity.Multiplayer.Tools.NetworkProfiler.Editor",
+        "Unity.Multiplayer.Tools.NetworkProfiler.Runtime",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "Unity.Multiplayer.Tools.NetStats",
+        "Unity.Multiplayer.Tools.MetricTypes",
+        "Unity.Multiplayer.Tools.NetStats.Tests.Editor",
+        "Unity.Collections",
+        "Unity.Multiplayer.Tools.NetStatsMonitor.Component"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "Newtonsoft.Json.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

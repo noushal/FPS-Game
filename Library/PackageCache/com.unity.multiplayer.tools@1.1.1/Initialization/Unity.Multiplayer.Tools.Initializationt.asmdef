@@ -1,0 +1,17 @@
+{
+    "name": "Unity.Multiplayer.Tools.Initialization",
+    "rootNamespace": "Unity.Multiplayer.Tools.Context",
+    "references": [
+        "Unity.Multiplayer.Tools.Common",
+        "Unity.Multiplayer.Tools.NetVis.Shared"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

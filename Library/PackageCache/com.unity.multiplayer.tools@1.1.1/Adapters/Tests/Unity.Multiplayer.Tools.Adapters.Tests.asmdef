@@ -1,0 +1,28 @@
+{
+  "name": "Unity.Multiplayer.Tools.Adapters.Tests",
+  "rootNamespace": "Unity.Multiplayer.Tools.Adapters.Tests",
+  "references": [
+    "Unity.Multiplayer.Tools.Adapters",
+    "Unity.Multiplayer.Tools.Adapters.Utp2",
+    "Unity.Multiplayer.Tools.Adapters.Ngo1WithUtp2",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner",
+    "Unity.Netcode.Runtime"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "autoReferenced": false,
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "defineConstraints": [
+    "UNITY_2022_1_OR_NEWER",
+    "UTP_TRANSPORT_2_0_ABOVE",
+    "UNITY_NETCODE_GAMEOBJECTS_1_0"
+  ],
+  "noEngineReferences": false
+}

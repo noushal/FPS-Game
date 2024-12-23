@@ -1,0 +1,14 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Unity.Multiplayer.Tools.NetworkSimulator.Runtime;
+
+#ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : NetworkScenarioTask
+{
+    protected override Task Run(INetworkEventsApi networkEventsApi, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException($"{nameof(#SCRIPTNAME#)}.{nameof(Run)} method not implemented");
+    }
+}
+#ROOTNAMESPACEEND#

@@ -1,0 +1,47 @@
+#TitleLabel {
+    -unity-font-style: bold;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+
+#ScenarioDropdown {
+    margin-bottom: 2px;
+}
+
+#SettingsContainer {
+    margin-top: 2px;
+}
+
+#SettingsFoldout {
+    margin-left: 10px;
+    margin-right: -3px;
+}
+
+#SettingsFoldout #unity-checkmark {
+    margin-left: 2px;
+}
+
+#SettingsFoldout .unity-toggle .unity-label {
+    margin-left: -3px;
+}
+
+#NoScenarioMessage {
+    height: auto;
+    margin-left: -23px;
+    margin-right: 3px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#NoScenarioMessage .unity-help-box__icon {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+}

@@ -1,0 +1,28 @@
+
+.unity-mp-tools-settings-menu {
+    flex-direction: column;
+    padding-left: 5px;
+}
+
+.unity-mp-tools-settings-title {
+    font-size: 19px;
+    -unity-font-style: bold;
+    margin-left: 4px;
+}
+
+.unity-mp-tools-settings-contents {
+    margin-left: 15px;
+}
+
+.unity-mp-tools-settings-sub-menu-title {
+    -unity-font-style: bold;
+}
+
+.unity-mp-tools-settings-sub-menu-contents {
+    margin-left: 18px;
+}
+
+.unity-mp-tools-setting.unity-toggle .unity-label {
+    /* Min width to align the checkmarks on all toggles less than 150px in width */
+    min-width: 150px;
+}

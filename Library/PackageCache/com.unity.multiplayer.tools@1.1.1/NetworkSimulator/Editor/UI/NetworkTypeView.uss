@@ -1,0 +1,31 @@
+#PresetValuesContainer {
+}
+
+#PresetValuesFoldout {
+    margin-left: 10px;
+}
+
+#PacketDelayRangeContainer {
+    flex-direction: row;
+    margin-left: 3px;
+    margin-top: 5px;
+}
+
+#PacketDelayRangeContainer > MinMaxSlider {
+    flex-grow: 1;
+    margin-right: 3px;
+    margin-left: 3px;
+}
+
+.range-value {
+    flex-shrink: 1;
+    flex-grow: 0;
+    width: 50px;
+}
+
+#PresetValuesFoldout > #unity-content {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Unity.Multiplayer.Tools.Adapters.Utp2",
+  "rootNamespace": "Unity.Multiplayer.Tools.Adapters.Utp2",
+  "references": [
+    "Unity.Multiplayer.Tools.Adapters",
+    "Unity.Networking.Transport"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UTP_TRANSPORT_2_0_ABOVE"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.unity.transport",
+      "expression": "2.0.0-exp",
+      "define": "UTP_TRANSPORT_2_0_ABOVE"
+    }
+  ],
+  "noEngineReferences": false
+}

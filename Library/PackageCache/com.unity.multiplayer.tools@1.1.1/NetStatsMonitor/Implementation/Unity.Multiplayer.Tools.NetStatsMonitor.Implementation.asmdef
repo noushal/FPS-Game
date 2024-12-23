@@ -1,0 +1,22 @@
+{
+    "name": "Unity.Multiplayer.Tools.NetStatsMonitor.Implementation",
+    "rootNamespace": "Unity.Multiplayer.Tools.NetStatsMonitor.Implementation",
+    "references": [
+        "Unity.Multiplayer.Tools.Adapters",
+        "Unity.Multiplayer.Tools.Common",
+        "Unity.Multiplayer.Tools.MetricTypes",
+        "Unity.Multiplayer.Tools.NetStats",
+        "Unity.Multiplayer.Tools.NetStatsMonitor.Configuration"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_2021_2_OR_NEWER"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

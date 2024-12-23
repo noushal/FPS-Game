@@ -1,0 +1,17 @@
+using System;
+using Unity.Multiplayer.Tools.NetworkSimulator.Runtime;
+
+#ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : NetworkScenarioBehaviour
+{
+    public override void Start(INetworkEventsApi networkEventsApi)
+    {
+        throw new NotImplementedException($"{nameof(#SCRIPTNAME#)}.{nameof(Start)} method not implemented.");
+    }
+
+    protected override void Update(float deltaTime)
+    {
+        throw new NotImplementedException($"{nameof(#SCRIPTNAME#)}.{nameof(Update)} method not implemented.");
+    }
+}
+#ROOTNAMESPACEEND#

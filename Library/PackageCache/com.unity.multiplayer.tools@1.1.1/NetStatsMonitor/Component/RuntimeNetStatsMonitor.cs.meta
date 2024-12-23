@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 17737e0516da2445b9b0077ae2bd9b4f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - <CustomStyleSheet>k__BackingField: {instanceID: 0}
+  - <PanelSettingsOverride>k__BackingField: {instanceID: 0}
+  - <Configuration>k__BackingField: {fileID: 11400000, guid: 8f1b4e3792d8446399527749cfb591a2, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

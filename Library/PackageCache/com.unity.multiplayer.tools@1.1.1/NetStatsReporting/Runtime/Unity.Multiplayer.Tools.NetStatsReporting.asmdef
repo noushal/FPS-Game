@@ -1,0 +1,20 @@
+{
+    "name": "Unity.Multiplayer.Tools.NetStatsReporting",
+    "rootNamespace": "Unity.Multiplayer.Tools.NetStatsReporting",
+    "references": [
+        "Unity.Collections",
+        "Unity.Multiplayer.Tools.Common",
+        "Unity.Multiplayer.Tools.MetricTypes",
+        "Unity.Multiplayer.Tools.MetricEvents",
+        "Unity.Multiplayer.Tools.NetStats"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

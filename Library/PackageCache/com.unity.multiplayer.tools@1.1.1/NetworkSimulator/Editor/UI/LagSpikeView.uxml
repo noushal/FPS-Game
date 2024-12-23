@@ -1,0 +1,17 @@
+﻿<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" tools="Unity.Multiplayer.Tools.NetworkSimulator.Editor.UI" editor-extension-mode="True">
+    <Style src="LagSpikeView.uss" />
+    <ui:VisualElement tooltip="The Lag Spike Simulator simulates short periods of lost connection and sudden disconnection.">
+        <ui:Label name="TitleLabel" text="Duration of lag spike (ms)" />
+        <ui:VisualElement name="DurationContainer">
+            <ui:Button name="DurationButton100" text="100" />
+            <ui:Button name="DurationButton200" text="200" />
+            <ui:Button name="DurationButton500" text="500" />
+            <ui:Button name="DurationButton1000" text="1000" />
+            <ui:Button name="DurationButton2000" text="2000" />
+            <ui:Button name="DurationButton5000" text="5000" />
+
+            <ui:IntegerField name="DurationField" />
+        </ui:VisualElement>
+        <ui:Button name="TriggerButton" text="Trigger" />
+    </ui:VisualElement>
+</ui:UXML>

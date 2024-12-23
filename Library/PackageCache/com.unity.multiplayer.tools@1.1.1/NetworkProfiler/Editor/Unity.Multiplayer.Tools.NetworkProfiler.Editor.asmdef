@@ -1,0 +1,23 @@
+{
+    "name": "Unity.Multiplayer.Tools.NetworkProfiler.Editor",
+    "rootNamespace": "Unity.Multiplayer.Tools.NetworkProfiler.Editor",
+    "references": [
+        "Unity.Profiling.Core",
+        "Unity.Multiplayer.Tools.NetworkProfiler.Runtime",
+        "Unity.Multiplayer.Tools.NetStats",
+        "Unity.Multiplayer.Tools.MetricTypes",
+        "Unity.Multiplayer.Tools.NetworkSolutionInterface",
+        "Unity.Collections"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
